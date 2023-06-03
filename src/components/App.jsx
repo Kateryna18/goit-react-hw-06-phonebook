@@ -3,6 +3,7 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
 import toast, { Toaster } from 'react-hot-toast';
+// import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -11,6 +12,9 @@ export function App() {
     return JSON.parse(window.localStorage.getItem("CONTACTS_KEY")) ?? [];
   });
   const [filter, setFilter] = useState('');
+
+  // const contacts = useSelector(state => state.contacts);
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("CONTACTS_KEY", JSON.stringify(contacts))
@@ -50,10 +54,11 @@ export function App() {
         value={filter}
         handleChange={handleChangeFilter}
       />
-      {contacts.length !== 0 && <ContactsList
+      <ContactsList/>
+      {/* {contacts.length !== 0 && <ContactsList
         contacts={handleFilterContacts()}
         deleteContact={handleDeleteContact}
-      />}
+      />} */}
       <Toaster />
     </div>
   );
