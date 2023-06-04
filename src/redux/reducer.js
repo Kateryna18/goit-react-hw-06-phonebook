@@ -1,7 +1,7 @@
 import { conctactsReducer } from './conctactsReducer';
-// import { filterReducer } from './filterReducer';
+import { filterReducer } from './filterReducer';
 
 export const reducer = {
   contacts: conctactsReducer,
-  // filter: filterReducer,
+  filter: filterReducer,
 }

@@ -1,11 +1,15 @@
-// import { useState } from 'react';
 import css from 'components/ContactForm/ContactForm.module.css';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/actions';
 import { nanoid } from '@reduxjs/toolkit';
+import { useState } from 'react';
 
 
 export function ContactForm() {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const contactData = { name, number };
 
   const dispatch = useDispatch();
 
@@ -14,19 +18,31 @@ export function ContactForm() {
     
     const contact = {
       id: nanoid(6),
-      name: e.target.elements.name.value,
-      number: e.target.elements.number.value,
+      ...contactData,
     };
     dispatch(addContact(contact))
-    // if (!isContactExists) {
-    //   reset();
-    // }
+    reset()
   };
 
-  // const reset = () => {
-  //   setName('');
-  //   setNumber('');
-  // };
+  const handleChange = e => {
+        switch (e.target.name) {
+          case 'name':
+            setName(e.target.value);
+            break;
+    
+          case 'number':
+            setNumber(e.target.value);
+            break;
+    
+          default:
+            return;
+        }
+      };
+
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
@@ -40,6 +56,8 @@ export function ContactForm() {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
+            value={name}
+            onChange={handleChange}
           />
         </label>
         <label className={css.formLabel}>
@@ -51,6 +69,8 @@ export function ContactForm() {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
+            onChange={handleChange}
+            value={number}
           />
         </label>
       </div>
@@ -61,6 +81,7 @@ export function ContactForm() {
   );
 }
 
+// ......... ....USE HOOKS ..........................
 // export function ContactForm({ addContact }) {
 //   const [name, setName] = useState('');
 //   const [number, setNumber] = useState('');

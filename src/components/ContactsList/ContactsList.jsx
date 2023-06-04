@@ -1,31 +1,27 @@
 import React from 'react';
 import css from 'components/ContactsList/ContactsList.module.css';
-// import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 
-export function ContactsList({deleteContact}) {
+export function ContactsList() {
     const contacts = useSelector((state) => state.contacts);
-    console.log(contacts);
+    const filter = useSelector((state) => state.filter);
+
+    const filteredContacts = contacts.filter(contact =>
+      contact.name
+        .toLowerCase()
+        .includes(filter.toLowerCase().trim())
+    );
 
     return (
     <ul className={css.contactsList}>
-        {contacts.length && contacts.map(contact => <ContactItem contactObj={contact} key={contact.id}/>)}
+        {filteredContacts.map(contact => <ContactItem contactObj={contact} key={contact.id}/>)}
     </ul>
   )
 }
 
-// ContactsList.propTypes = {
-//     contacts: PropTypes.arrayOf(
-//         PropTypes.exact({
-//             id: PropTypes.string.isRequired,
-//             name: PropTypes.string.isRequired,
-//             number: PropTypes.string.isRequired,
-//         })
-//     ),
-//     deleteContact: PropTypes.func.isRequired,
-// }
 
+// ......... ....USE HOOKS ..........................
 // export function ContactsList({contacts, deleteContact}) {
 //     return (
 //     <ul className={css.contactsList}>
