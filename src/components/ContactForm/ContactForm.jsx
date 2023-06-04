@@ -1,7 +1,6 @@
 import css from 'components/ContactForm/ContactForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/actions';
-import { nanoid } from '@reduxjs/toolkit';
+import { addContact } from '../../redux/contactsSlice';
 import { useState } from 'react';
 
 
@@ -16,11 +15,7 @@ export function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
     
-    const contact = {
-      id: nanoid(6),
-      ...contactData,
-    };
-    dispatch(addContact(contact))
+    dispatch(addContact(contactData))
     reset()
   };
 

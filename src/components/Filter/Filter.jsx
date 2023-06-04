@@ -1,8 +1,7 @@
 import React from 'react';
 import css from 'components/Filter/Filter.module.css';
-// import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { filterContact } from '../../redux/actions';
+import { filterContact } from '../../redux/filterSlice';
 
 export function Filter() {
   const dispatch = useDispatch();
@@ -10,7 +9,6 @@ export function Filter() {
   const handleChange = (e) => {
     const value = e.target.value;
     dispatch(filterContact(value));
-    console.log(value);
   }
 
     return (
